@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let configuration = ParseClientConfiguration {
+            $0.applicationId = "H796MHz5Zx0J76ksNGkkDjZYl5PpB2RaydGr826k"
+            $0.clientKey = "Vc1qP0WtsuvuUpJxdxd4mIiwUaUwXLrmVMgM6IOc"
+            $0.server = "https://parseapi.back4app.com"
+        }
+        Parse.initializeWithConfiguration(configuration)
+        
+        
+        //Notificacion PUSH local
+        if (UIApplication.instancesRespondToSelector("registerUserNotificationSettings:")) {
+            let settings = UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(settings)
+        }
+        
         return true
     }
 
